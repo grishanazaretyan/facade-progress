@@ -2,107 +2,132 @@
 <html lang="ka">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>აივნების ფასადის პროგრესი</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#16181b">
+<meta name="theme-color" content="#E7E9EE" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ფასადი">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE: site-office tool, plain and exact, like a marked-up shop drawing
-   IDEA: the A1 floor plan sheet you colour in with markers as work gets installed
-   PICTURE: the plan itself, every cassette and wall piece tappable
-   COLOUR and TYPE: drawing-sheet white, work types in marker colours; Barlow / Barlow Condensed figures
-   LAYOUT: bar, layer chips, big plan, then this month's figures and the part table */
-:root{color-scheme:light dark;--bg:light-dark(#f4f4f0,#121417);--sheet:light-dark(#ffffff,#1a1d21);--ink:light-dark(#16181b,#eceef0);--mute:light-dark(#62666c,#9aa0a6);--line:light-dark(#d9dbd6,#2c3036);--bgl:light-dark(#b8bcc2,#3d434b);
---ceil:#b21fc4;--cer:#1e9a3c;--acm:#1747d6;--niche:#e07800;--fac:#0f7a5a;--now:light-dark(#ffd21f,#ffd21f)}
+/* VOICE: Calque's calm drawing-viewer feel: quiet chrome, the sheet is the star
+   IDEA: the plan sheet open in Calque, with floating glass bars over it
+   PICTURE: full-screen white sheet with every cassette and wall piece tappable
+   COLOUR and TYPE: Calque grey #E7E9EE / #111317, chips #E3E6EB, burnt-orange accent #B3480A; system font + Noto Sans Georgian
+   LAYOUT: viewer fills the first screen, rounded translucent top and bottom bars; figures and table below in rounded cards */
+:root{color-scheme:light dark;
+--bg:light-dark(#E7E9EE,#111317);--sheet:light-dark(#ffffff,#1b1e23);--ink:light-dark(#111317,#eef0f3);--mute:light-dark(#5f6670,#9aa1ab);
+--chip:light-dark(#E3E6EB,#2C3037);--sep:light-dark(rgba(60,60,67,.18),rgba(235,235,245,.16));--glass:light-dark(rgba(246,247,249,.82),rgba(30,33,38,.78));
+--acc:light-dark(#B3480A,#FFB68A);--onacc:light-dark(#ffffff,#3A1A00);--bgl:light-dark(#c3c7ce,#3b4048);
+--ceil:#9b3fd1;--cer:#1E9E4A;--acm:#1E6FE0;--niche:#FF9800;--fac:#0f7a5a;--now:#FF6A13}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
-*{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Barlow,"Noto Sans Georgian",system-ui,sans-serif;overflow-x:clip}
-.num,.fig-n{font-family:"Barlow Condensed",Barlow,sans-serif;font-variant-numeric:tabular-nums}
-header{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:14px max(3vw,14px) 8px}
-h1{font-size:clamp(22px,3vw,32px);line-height:1.05;margin:0;font-weight:700;flex:1 1 260px}
-h1 small{display:block;font-size:14px;font-weight:500;color:var(--mute);margin-top:4px}
-label.m{display:flex;align-items:center;gap:8px;font-weight:600}
-input[type=month]{font:600 16px Barlow,sans-serif;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink);min-height:44px}
-.save{font-size:14px;color:var(--mute);min-width:9em;text-align:right}
-.bar{display:flex;flex-wrap:wrap;gap:8px;padding:4px max(3vw,14px) 10px;align-items:center}
-.bar .lbl{font-size:14px;color:var(--mute);margin-right:2px}
-button{font:600 15px Barlow,"Noto Sans Georgian",sans-serif;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid var(--line);background:var(--sheet);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-button:focus-visible,input:focus-visible{outline:3px solid var(--now);outline-offset:2px}
-button[aria-pressed=true]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
-.sw{width:14px;height:14px;border-radius:4px;display:inline-block}
-.plan{position:relative;margin:0 max(3vw,14px);height:min(72vh,900px);min-height:420px;background:var(--sheet);border:1px solid var(--line);border-radius:14px;overflow:hidden;touch-action:none}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Noto Sans Georgian",sans-serif;overflow-x:clip}
+.num{font-variant-numeric:tabular-nums}
+.viewer{position:relative;height:100dvh;min-height:520px;padding:10px;padding-top:max(10px,env(safe-area-inset-top))}
+.plan{position:absolute;inset:0;background:var(--bg);overflow:hidden;touch-action:none}
 .plan svg{position:absolute;inset:0;width:100%;height:100%;user-select:none;-webkit-user-select:none}
-.zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
-.zoom button{width:44px;padding:0;justify-content:center;font-size:22px;border-radius:12px}
-.hint{position:absolute;left:12px;bottom:10px;font-size:13px;color:var(--mute);background:color-mix(in srgb,var(--sheet) 85%,transparent);padding:4px 8px;border-radius:6px;pointer-events:none}
-.toast{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--ink);color:var(--sheet);padding:8px 14px;border-radius:10px;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90%}
+.glassbar{position:absolute;z-index:2;background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);border:.5px solid var(--sep);box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.top{left:12px;right:12px;top:max(12px,env(safe-area-inset-top));border-radius:26px;padding:10px 14px;display:grid;gap:8px}
+.trow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.ttl{flex:1 1 240px}
+h1{font-size:19px;line-height:1.2;margin:0;font-weight:650;letter-spacing:-.01em}
+h1 small{display:block;font-size:13px;font-weight:400;color:var(--mute);margin-top:2px}
+.seg{display:inline-flex;background:var(--chip);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;min-height:36px;padding:0 12px;font-size:14px}
+.seg button[aria-pressed=true]{background:var(--sheet);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+label.m{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--mute)}
+input[type=month]{font:500 15px inherit;font-family:inherit;padding:6px 12px;border:0;border-radius:999px;background:var(--chip);color:var(--ink);min-height:40px}
+.save{font-size:13px;color:var(--mute)}
+.scrollx{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:1px}.scrollx::-webkit-scrollbar{display:none}
+button{font:500 15px inherit;font-family:inherit;min-height:40px;padding:0 14px;border-radius:999px;border:0;background:var(--chip);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:7px;flex:none;white-space:nowrap}
+button[aria-pressed=true]{background:var(--acc);color:var(--onacc)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.sw{width:10px;height:10px;border-radius:50%;display:inline-block}
+.bottom{left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));border-radius:999px;padding:6px;display:flex;gap:4px;max-width:calc(100% - 24px);overflow-x:auto;scrollbar-width:none}
+.bottom::-webkit-scrollbar{display:none}
+.bottom .div{width:1px;align-self:stretch;margin:6px 4px;background:var(--sep);flex:none}
+.ib{width:40px;padding:0;justify-content:center;background:transparent}
+.ib svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bottom button:not([aria-pressed=true]):not(.ib){background:transparent}
+.toast{position:absolute;z-index:3;left:50%;bottom:calc(max(14px,env(safe-area-inset-bottom)) + 64px);transform:translateX(-50%);background:var(--glass);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);border:.5px solid var(--sep);color:var(--ink);padding:8px 16px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toast.on{opacity:1}
+.sheetbg{fill:var(--sheet);stroke:var(--sep);stroke-width:.6}
 .bg{stroke:var(--bgl);stroke-width:.25;fill:none}
-.pb{fill:none;stroke:var(--line);stroke-width:.6;stroke-dasharray:3 2}
-.pl{font:700 22px "Barlow Condensed",sans-serif;fill:var(--mute)}
+.pb{fill:none;stroke:var(--bgl);stroke-width:.5;stroke-dasharray:3 2}
+.pl{font:600 20px -apple-system,"SF Pro Display",sans-serif;fill:var(--mute)}
 .el{cursor:pointer}
-.ceil polygon{fill:color-mix(in srgb,var(--ceil) 7%,transparent);stroke:color-mix(in srgb,var(--ceil) 55%,transparent);stroke-width:.35}
+.ceil polygon{fill:color-mix(in srgb,var(--ceil) 8%,transparent);stroke:color-mix(in srgb,var(--ceil) 50%,transparent);stroke-width:.35}
 .ceil.d polygon{fill:color-mix(in srgb,var(--ceil) 55%,transparent);stroke:var(--ceil)}
-.ceil.n polygon{fill:var(--ceil);stroke:var(--now);stroke-width:.9}
-.ln .v{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.1;opacity:.28}
+.ceil.n polygon{fill:var(--ceil);stroke:var(--now);stroke-width:1}
+.ln .v{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.1;opacity:.3}
 .ln .h{fill:none;stroke:transparent;stroke-width:18px;vector-effect:non-scaling-stroke}
 .cer .v{stroke:var(--cer)}.acm .v{stroke:var(--acm)}.fac .v{stroke:var(--fac);stroke-dasharray:2 1}
 .ln.d .v{opacity:1;stroke-width:1.9}
 .ln.n .v{opacity:1;stroke-width:2.2;filter:drop-shadow(0 0 1.2px var(--now)) drop-shadow(0 0 1.2px var(--now))}
-.mk .v{stroke-width:.6;opacity:.45}.mk .h{fill:transparent;stroke:none}
+.mk .v{stroke-width:.6;opacity:.5}.mk .h{fill:transparent;stroke:none}
 .win .v{fill:var(--sheet);stroke:var(--cer)}.niche .v{fill:var(--sheet);stroke:var(--niche)}
 .mk.d .v{opacity:1}.win.d .v{fill:var(--cer)}.niche.d .v{fill:var(--niche)}
 .mk.n .v{stroke:var(--now);stroke-width:1}
-.off{opacity:.18;pointer-events:none}
-main{padding:18px max(3vw,14px) 40px;display:grid;gap:22px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}
-.k{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:4px}
-.k h3{margin:0;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
-.k .big{font:700 clamp(30px,4vw,40px)/1 "Barlow Condensed",sans-serif}
-.k .big span{font-size:18px;color:var(--mute);font-weight:600}
-.meter{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.meter i{display:block;height:100%}
-.k .sub{font-size:14px;color:var(--mute)}
-h2{font-size:22px;margin:0 0 8px;line-height:1.15}
-.tw{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:6px 14px;overflow-x:auto}
+.off{opacity:.15;pointer-events:none}
+main{padding:22px 16px 48px;display:grid;gap:26px;max-width:1240px;margin:0 auto}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.k{background:var(--sheet);border-radius:20px;padding:16px 18px;display:grid;gap:6px}
+.k h3{margin:0;font-size:14px;font-weight:500;color:var(--mute);display:flex;align-items:center;gap:8px}
+.k .big{font-size:clamp(28px,4vw,36px);font-weight:650;letter-spacing:-.02em;line-height:1.05;font-variant-numeric:tabular-nums}
+.k .big span{font-size:15px;color:var(--mute);font-weight:500;letter-spacing:0}
+.meter{height:6px;border-radius:3px;background:var(--chip);overflow:hidden}.meter i{display:block;height:100%;border-radius:3px}
+.k .sub{font-size:13px;color:var(--mute)}
+h2{font-size:21px;margin:0 0 10px;line-height:1.2;font-weight:650;letter-spacing:-.01em}
+.tw{background:var(--sheet);border-radius:20px;padding:4px 16px;overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:15px}
-th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th,td{padding:10px 6px;border-bottom:.5px solid var(--sep);text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:0}
 th:first-child,td:first-child{text-align:left}
-th{font-size:13px;color:var(--mute);font-weight:600}
-tr.bk td{font-weight:700;background:color-mix(in srgb,var(--line) 45%,transparent)}
-tr.pr{cursor:pointer}
-td small{color:var(--mute);font-size:13px}
+th{font-size:12.5px;color:var(--mute);font-weight:500}
+tr.bk td{font-weight:650}
+tr.pr{cursor:pointer}tr.pr:active{background:var(--chip)}
+td small{color:var(--mute);font-size:12.5px}
 .rep{display:grid;gap:10px}
-pre{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0;font:15px/1.5 Barlow,"Noto Sans Georgian",sans-serif;white-space:pre-wrap}
+pre{background:var(--sheet);border-radius:20px;padding:16px 18px;margin:0;font:15px/1.55 inherit;font-family:inherit;white-space:pre-wrap}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.dlg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
-.dlg.on{display:flex}.dlg>div{background:var(--sheet);border-radius:16px;padding:18px;max-width:420px;display:grid;gap:14px}
-.note{font-size:13px;color:var(--mute)}
-@media(max-width:600px){.plan{height:62vh}table{font-size:13px}th,td{padding:6px 4px}}
+.dlg{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+.dlg.on{display:flex}.dlg>div{background:var(--sheet);border-radius:22px;padding:20px;max-width:420px;display:grid;gap:16px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.note{font-size:13px;color:var(--mute);margin:8px 2px 0}
+.more{position:absolute;z-index:2;right:22px;bottom:calc(max(14px,env(safe-area-inset-bottom)) + 4px)}
+@media(max-width:700px){.top{border-radius:22px}.ttl{flex-basis:100%}h1 small{display:none}table{font-size:13px}th,td{padding:8px 4px}.more{display:none}}
 @media(prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 </head>
 <body>
-<header>
- <h1>აივნების ფასადის პროგრესი<small>AC units გეგმა · სართულები L1 +4.50, L2 +7.80, L3 +11.10 · შეეხეთ ელემენტს, როცა დამონტაჟდება</small></h1>
- <div class="row" id="floors" role="group" aria-label="სართული"></div>
- <label class="m">თვე <input type="month" id="mon"></label>
- <span class="save" id="save" aria-live="polite"></span>
-</header>
-<div class="bar" id="layers"><span class="lbl">მონიშვნა:</span></div>
-<div class="bar" id="partsbar"><span class="lbl">გადიდება:</span></div>
+<div class="viewer">
 <div class="plan" id="plan">
  <svg id="svg" role="img" aria-label="სართულის გეგმა აივნების ნაწილებით"></svg>
- <div class="zoom"><button id="zin" aria-label="გადიდება">+</button><button id="zout" aria-label="დაპატარავება">−</button><button id="undo" aria-label="ბოლო მოქმედების გაუქმება" style="font-size:15px">↶</button></div>
- <div class="hint">გადაადგილება – გადაათრიეთ · ზომა – ორი თითით ან +/− · მონიშვნა – შეხებით</div>
- <div class="toast" id="toast"></div>
 </div>
-<main>
+<div class="glassbar top">
+ <div class="trow">
+  <h1 class="ttl">აივნების ფასადის პროგრესი<small>AC units · L1 +4.50 · L2 +7.80 · L3 +11.10 — შეეხეთ ელემენტს, როცა დამონტაჟდება</small></h1>
+  <div class="seg" id="floors" role="group" aria-label="სართული"></div>
+  <label class="m">თვე <input type="month" id="mon"></label>
+  <span class="save" id="save" aria-live="polite"></span>
+ </div>
+ <div class="scrollx" id="partsbar"></div>
+</div>
+<div class="glassbar bottom" id="bottombar">
+ <div class="scrollx" id="layers" style="gap:2px"></div>
+ <span class="div"></span>
+ <button class="ib" id="zout" aria-label="დაპატარავება"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+ <button class="ib" id="zin" aria-label="გადიდება"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+ <button class="ib" id="zfit" aria-label="მთლიანი გეგმა"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+ <button class="ib" id="undo" aria-label="ბოლო მოქმედების გაუქმება"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+</div>
+<button class="glassbar ib more" id="tostats" aria-label="შედეგები" style="border-radius:50%;width:48px;min-height:48px"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+<div class="toast" id="toast"></div>
+</div>
+<main id="stats">
  <section><div class="row" style="justify-content:space-between"><h2 id="kh">ამ თვეში</h2><div class="row" id="scope"></div></div><div class="kpis" id="kpis"></div></section>
  <section><div class="row" style="justify-content:space-between"><h2>ბლოკებისა და ნაწილების მიხედვით</h2><div class="row" id="bulk"></div></div>
   <div class="tw"><table id="tbl"></table></div>
@@ -141,7 +166,7 @@ const svg=$('svg');
 const X0=660,Y0=120,W0=1080,H0=1480;
 let vb={x:X0,y:Y0,w:W0,h:H0};
 const setVB=()=>svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
-let html=`<path class="bg" d="${BG}"/>`;
+let html=`<rect class="sheetbg" x="640" y="95" width="1120" height="1525" rx="10"/><path class="bg" d="${BG}"/>`;
 for(const p of PARTS){const q=D.parts[p];html+=`<polygon class="pb" points="${q.poly.map(a=>a.join(',')).join(' ')}"/>`}
 const ord={ceil:0,fac:1,cer:2,acm:3,win:4,niche:5};
 [...D.els].sort((a,b)=>ord[a.t]-ord[b.t]).forEach(e=>{
@@ -163,9 +188,10 @@ let focusPart=null;
 $('partsbar').insertAdjacentHTML('beforeend',['All',...PARTS].map(p=>`<button data-p="${p}" aria-pressed="${p==='All'}">${p==='All'?'მთლიანი':p}</button>`).join(''));
 $('partsbar').addEventListener('click',e=>{const b=e.target.closest('button');if(b)zoomPart(b.dataset.p)});
 function zoomPart(p){focusPart=p==='All'?null:p;$('partsbar').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.p===p));
- if(!focusPart){vb={x:X0,y:Y0,w:W0,h:H0}}else{const xs=D.parts[p].poly.map(a=>a[0]),ys=D.parts[p].poly.map(a=>a[1]);const m=8;
-  let x=Math.min(...xs)-m,y=Math.min(...ys)-m,w=Math.max(...xs)-x+m,h=Math.max(...ys)-y+m;fit(x,y,w,h)}
+ if(!focusPart){fitView(X0,Y0,W0,H0)}else{const xs=D.parts[p].poly.map(a=>a[0]),ys=D.parts[p].poly.map(a=>a[1]);const m=8;
+  let x=Math.min(...xs)-m,y=Math.min(...ys)-m,w=Math.max(...xs)-x+m,h=Math.max(...ys)-y+m;fitView(x,y,w,h)}
  setVB();renderBulk()}
+function fitView(x,y,w,h){const r=svg.getBoundingClientRect(),tb=document.querySelector('.top').getBoundingClientRect(),bb=$('bottombar').getBoundingClientRect();const padT=(tb.bottom-r.top+8),padB=(r.bottom-bb.top+8),avail=Math.max(r.height-padT-padB,100),s=Math.max(w/r.width,h/avail);const vw=r.width*s,vh=r.height*s;vb={x:x-(vw-w)/2,y:y-padT*s-(avail*s-h)/2,w:vw,h:vh}}
 function fit(x,y,w,h){const r=svg.getBoundingClientRect(),ar=r.width/r.height;if(w/h>ar){const nh=w/ar;y-=(nh-h)/2;h=nh}else{const nw=h*ar;x-=(nw-w)/2;w=nw}vb={x,y,w,h}}
 // ---- paint
 function paint(){const m=mon.value;
@@ -222,6 +248,7 @@ const up=e=>{if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);if(pts.size
 svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
 svg.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,Math.exp(e.deltaY*0.0015))},{passive:false});
 $('zin').onclick=()=>{const r=svg.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,0.7)};
+$('zfit').onclick=()=>zoomPart('All');$('tostats').onclick=()=>$('stats').scrollIntoView({behavior:'smooth'});
 $('zout').onclick=()=>{const r=svg.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,1/0.7)};
 // ---- saving
 let saveT=null;
@@ -240,6 +267,7 @@ $('rsb').onclick=()=>$('rs').click();
 $('rs').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j||typeof j.done!=='object')throw 0;ask(`ამ მოწყობილობის მონიშვნები შეიცვალოს ასლით (${Object.keys(j.done).length} ელემენტი)?`,()=>{const prev={};for(const k of new Set([...Object.keys(ST.done),...Object.keys(j.done)]))prev[k]=ST.done[k]||null;undoStack.push(prev);ST={done:{...j.done}};paint();queueSave();toast('ასლი აღდგა')})}catch(_){toast('ეს ფაილი ასლი არ არის')}e.target.value=''};
 $('seed').onclick=()=>ask(`დაემატოს Claude-ში მონიშნული ${Object.keys(SEED.done).length} ელემენტი ამ მოწყობილობაზე?`,()=>{for(const[k,v]of Object.entries(SEED.done))if(!ST.done[k])ST.done[k]=v;paint();queueSave();toast('მონიშვნები დაემატა')});
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+requestAnimationFrame(()=>{fitView(X0,Y0,W0,H0);setVB()});addEventListener('resize',()=>{if(!focusPart){fitView(X0,Y0,W0,H0);setVB()}});
 paint();renderBulk();
 if(window.claude&&claude.use){claude.use('artifact').then(a=>{art=a;status(a?'':'შენახულია ამ მოწყობილობაზე')}).catch(()=>status('შენახულია ამ მოწყობილობაზე'))}else status('შენახულია ამ მოწყობილობაზე');
 }
