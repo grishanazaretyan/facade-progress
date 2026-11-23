@@ -68,14 +68,14 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-of
 .mk.n .v{stroke:var(--now);stroke-width:1}
 .off{opacity:.15;pointer-events:none}
 main{padding:18px 14px 56px;max-width:900px;margin:0 auto}
-.gh{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:22px 16px 7px;font-size:13px;color:var(--mute)}
+.gh{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px;padding:22px 16px 7px;font-size:13px;color:var(--mute)}
 .gh b{font-weight:400}
 .grp{background:var(--grp);border-radius:12px;overflow:hidden}
 .li{display:flex;align-items:center;gap:12px;padding:11px 16px;min-height:44px}
 .li+.li{border-top:.5px solid var(--sep)}
 .li .n{flex:1}
 .li .v{font-variant-numeric:tabular-nums;white-space:nowrap}
-.li .s{color:var(--mute);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:6.5em;text-align:right}
+.li .s{display:none;color:var(--mute);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:6.5em;text-align:right}
 .lnk{color:var(--acc);font-size:15px;min-height:32px}
 .seg{display:flex;background:var(--chip);border-radius:9px;padding:2px;margin:12px 0 0}
 .seg button{flex:1;min-height:32px;border-radius:7px;font-size:14px}
@@ -101,36 +101,62 @@ pre{background:var(--grp);border-radius:12px;padding:14px 16px;margin:0;font:inh
 .hide{display:none!important}
 @media(max-width:600px){table{font-size:13px}th,td{padding:8px 8px}.nav .t span{font-size:12px}.tb{padding:0 8px}}
 @media(prefers-reduced-motion:reduce){.toast{transition:none}}
+
+.nav{height:auto;min-height:58px;flex-wrap:wrap;padding:7px 8px 7px 18px;gap:8px 10px}
+.seg.sm{margin:0}.seg.sm button{min-height:34px;padding:0 12px;flex:none}
+.mon{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mute)}
+.mon input{font:inherit;font-size:15px;color:var(--ink);border:0;border-radius:9px;background:var(--chip);padding:6px 10px;min-height:36px}
+.chip{background:var(--chip);border-radius:10px;height:36px;min-height:36px;padding:0 12px;font-size:14px}
+.chip svg{width:18px;height:18px}
+.tools{height:auto;min-height:56px;padding:6px 8px;border-radius:22px;flex-wrap:wrap;justify-content:center;gap:6px;left:0;right:0;margin:0 auto;width:max-content;transform:none}
+.grpb{display:flex;align-items:center;gap:2px}
+.seg.lay{margin:0}.seg.lay button{flex:none;min-height:34px;padding:0 11px;gap:6px;font-size:14px}
+.legend{left:10px;top:calc(max(10px,env(safe-area-inset-top)) + 74px);border-radius:12px;padding:6px 10px;display:flex;gap:12px;font-size:12.5px;color:var(--mute)}
+.legend span{display:flex;align-items:center;gap:5px}
+.lg{width:14px;height:10px;border-radius:3px;display:inline-block}
+.l0{background:color-mix(in srgb,var(--ceil) 10%,transparent);border:1px solid color-mix(in srgb,var(--ceil) 50%,transparent)}
+.l1{background:color-mix(in srgb,var(--ceil) 55%,transparent);border:1px solid var(--ceil)}
+.l2{background:var(--ceil);border:1.5px solid var(--now)}
+#mpart{left:50%;transform:translateX(-50%);bottom:calc(max(12px,env(safe-area-inset-bottom)) + 70px)}
+.li{flex-wrap:wrap;row-gap:6px}
+.li .bar{flex-basis:100%;height:5px;border-radius:3px;background:var(--chip);overflow:hidden;margin-left:24px}
+.li .bar i{display:block;height:100%;border-radius:3px}
+.li .sub2{flex-basis:100%;margin-left:24px;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+@media(max-width:820px){.nav .t{flex-basis:100%}.nav .t span{display:none}.tools{left:8px;right:8px;transform:none;max-width:none;width:auto;margin:0}.tools .sep{display:none}.seg.lay{order:-1;flex-basis:100%;flex-wrap:wrap;justify-content:center}.grpb{flex:1;justify-content:center}.legend{top:calc(max(10px,env(safe-area-inset-top)) + 118px)}.toast{bottom:calc(max(12px,env(safe-area-inset-bottom)) + 140px)}#mpart{bottom:calc(max(12px,env(safe-area-inset-bottom)) + 120px)}}
+@media(max-width:420px){.seg.lay button{padding:0 8px;font-size:13px}.legend{font-size:11.5px;gap:8px}}
 </style>
 </head>
 <body>
 <div class="viewer">
 <div class="plan" id="plan"><svg id="svg" role="img" aria-label="გეგმა"></svg></div>
 <div class="glass nav">
- <div class="t"><b>აივნები</b><span id="sub">AC units</span></div>
- <button class="tb" id="bfloor" aria-label="სართული"><span id="flbl">L1</span><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg></button>
- <button class="tb" id="bmon" aria-label="თვე"><span id="mlbl"></span><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg></button>
- <button class="ib" id="tostats" aria-label="ჯამები"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
+ <div class="t"><b>აივნები</b><span id="sub">AC units · ფასადის სამუშაოები</span></div>
+ <div id="floors" hidden></div>
+ <label class="mon"><span>თვე</span><input type="month" id="mon"></label>
+ <button class="tb chip" id="tostats"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span>ჯამები</span></button>
 </div>
-<div class="glass menu" id="mfloor" style="right:10px;top:calc(max(10px,env(safe-area-inset-top)) + 64px)"><div class="hd">სართული</div><div id="floors"></div></div>
-<div class="glass menu" id="mmon" style="right:10px;top:calc(max(10px,env(safe-area-inset-top)) + 64px)"><div class="hd">თვე</div><input type="month" id="mon"></div>
+<div class="glass legend"><span><i class="lg l0"></i>დარჩა</span><span><i class="lg l1"></i>დამონტაჟდა</span><span><i class="lg l2"></i>ამ თვეში</span></div>
 <div class="glass tools" id="bottombar">
- <button class="ib" id="pprev" aria-label="წინა ნაწილი"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
- <button class="tb" id="bpart" aria-label="ნაწილი"><span id="partlbl">გეგმა</span></button>
- <button class="ib" id="pnext" aria-label="შემდეგი ნაწილი"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
+ <div class="grpb">
+  <button class="ib" id="pprev" aria-label="წინა ნაწილი"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
+  <button class="tb chip" id="bpart" aria-label="ნაწილი"><span id="partlbl">გეგმა</span><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg></button>
+  <button class="ib" id="pnext" aria-label="შემდეგი ნაწილი"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
+ </div>
  <span class="sep"></span>
- <button class="tb" id="blayer" aria-label="რას ვნიშნავ"><span class="dot all" id="ldot"></span><span id="llbl">ყველა</span></button>
+ <div class="seg lay" id="layers" role="group" aria-label="რას ვნიშნავ"></div>
  <span class="sep"></span>
- <button class="ib" id="zfit" aria-label="მთლიანი"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
- <button class="ib" id="undo" aria-label="დაბრუნება"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
- <button class="hide" id="zin"></button><button class="hide" id="zout"></button>
+ <div class="grpb">
+  <button class="ib" id="zout" aria-label="დაპატარავება"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+  <button class="ib" id="zin" aria-label="გადიდება"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button class="ib" id="zfit" aria-label="მთლიანი გეგმა"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  <button class="ib" id="undo" aria-label="დაბრუნება"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+ </div>
 </div>
-<div class="glass menu" id="mpart" style="left:50%;transform:translateX(-50%);bottom:calc(max(12px,env(safe-area-inset-bottom)) + 64px)"><div id="partsbar"></div></div>
-<div class="glass menu" id="mlayer" style="left:50%;transform:translateX(-50%);bottom:calc(max(12px,env(safe-area-inset-bottom)) + 64px)"><div class="hd">შეხებით ინიშნება</div><div id="layers"></div></div>
+<div class="glass menu" id="mpart"><div class="hd">ნაწილი</div><div id="partsbar"></div></div>
 <div class="toast" id="toast"></div>
 </div>
 <main id="stats">
- <div class="seg" id="scope"></div>
+ <div id="scope" hidden></div>
  <div class="gh"><b id="kh">ამ თვეში</b></div>
  <div class="grp" id="kpis"></div>
  <div class="gh"><b>ნაწილების მიხედვით</b><span class="row" id="bulk"></span></div>
@@ -163,8 +189,8 @@ const NS='http://www.w3.org/2000/svg';
 const $=id=>document.getElementById(id);
 const fmt=v=>v.toFixed(1).replace('.',',');
 const now=new Date(); const mon=$('mon'); mon.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-let ptype='ceil', layer='all', undoStack=[], art=null, canWrite=true, floor='L1', scope='all';
-const FL=[['L1','L1  +4.50'],['L2','L2  +7.80'],['L3','L3  +11.10']];const K=id=>floor+':'+id;
+let ptype='ceil', layer='all', undoStack=[], art=null, canWrite=true, floor='L1', scope='one';
+const FL=[['L1','L1 +4.50'],['L2','L2 +7.80'],['L3','L3 +11.10']];const K=id=>floor+':'+id;
 $('floors').innerHTML=FL.map(([f,n])=>`<button data-f="${f}" aria-pressed="${f==='L1'}">${n}</button>`).join('');
 $('floors').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;floor=b.dataset.f;$('floors').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));paint();renderBulk();toast(b.textContent)});
 $('scope').innerHTML=`<button data-s="all" aria-pressed="true">3 სართული ერთად</button><button data-s="one" aria-pressed="false">მხოლოდ ეს სართული</button>`;
@@ -211,9 +237,9 @@ function sums(){const m=mon.value,S={},fs=scope==='all'?FL.map(x=>x[0]):[floor];
  for(const f of fs)for(const e of D.els){const c=CAT[e.t],k=e.p+'|'+c;S[k]=S[k]||{s:0,d:0,n:0};S[k].s+=e.a;const d=ST.done[f+':'+e.id];if(d&&d<=m)S[k].d+=e.a;if(d===m)S[k].n+=e.a}
  return S}
 function renderNums(){const S=sums(),m=mon.value;const MK=['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'];const mname=MK[+m.slice(5,7)-1]+' '+m.slice(0,4);
- const sc=scope==='all'?'3 სართული':FL.find(x=>x[0]===floor)[1];$('kh').textContent=mname+', '+sc;$('rh').textContent='ანგარიში, '+mname;$('flbl').textContent=floor;$('mlbl').textContent=MK[+m.slice(5,7)-1].slice(0,3)+'. '+m.slice(2,4);
+ const sc=scope==='all'?'3 სართული':FL.find(x=>x[0]===floor)[1];$('kh').textContent=mname;$('rh').textContent='ანგარიში, '+mname;
  const tot=c=>PARTS.reduce((a,p)=>{const v=S[p+'|'+c]||{s:0,d:0,n:0};a.s+=v.s;a.d+=v.d;a.n+=v.n;return a},{s:0,d:0,n:0});
- $('kpis').innerHTML=Object.keys(CN).map(c=>{const t=tot(c),pc=t.s?t.d/t.s*100:0;return`<div class="li"><span class="dot" style="background:var(${CV[c]})"></span><span class="n">${CN[c]}</span><span class="v">${fmt(t.n)} მ²</span><span class="s">${Math.round(pc)}%</span></div>`}).join('');
+ $('kpis').innerHTML=Object.keys(CN).map(c=>{const t=tot(c),pc=t.s?t.d/t.s*100:0;return`<div class="li"><span class="dot" style="background:var(${CV[c]})"></span><span class="n">${CN[c]}</span><span class="v"><b>${fmt(t.n)}</b> მ² ამ თვეში</span><div class="bar"><i style="width:${pc.toFixed(1)}%;background:var(${CV[c]})"></i></div><div class="sub2">სულ დამონტაჟებული ${fmt(t.d)} / ${fmt(t.s)} მ² · ${Math.round(pc)}%</div></div>`}).join('');
  const pc=v=>v.s?Math.round(v.d/v.s*100)+'%':'–';const cell=v=>`<td>${v.n?'<b>'+fmt(v.n)+'</b>':'–'}</td><td>${fmt(v.d)} <small>/ ${fmt(v.s)}</small></td><td><small>${pc(v)}</small></td>`;const c=ptype;
  let h=`<tr><th></th><th>ამ თვეში</th><th>სულ / მოცულობა, მ²</th><th></th></tr>`;
  for(const b of ['A','B','C']){const ps=PARTS.filter(p=>p[0]===b);
@@ -235,13 +261,13 @@ function setMany(ids,val){const prev={};ids.forEach(id=>{prev[id]=ST.done[id]||n
 function tapEl(id){const e=byId[id],m=mon.value,d=ST.done[K(id)];
  if(!canWrite){toast('მხოლოდ სანახავად');return}
  if(d&&d!==m){toast(`ჩაწერილია ${d}-ში. შესაცვლელად აირჩიეთ ის თვე.`);return}
- setMany([K(id)],d?null:m);toast(`${floor} · ${e.p} · ${CN[CAT[e.t]]} · ${fmt(e.a)} მ² ${d?'მოიხსნა':'დაემატა'}`)}
+ setMany([K(id)],d?null:m);toast(`${e.p} · ${CN[CAT[e.t]]} · ${fmt(e.a)} მ² ${d?'მოიხსნა':'დაემატა'}`)}
 $('undo').addEventListener('click',()=>{const u=undoStack.pop();if(!u){toast('გასაუქმებელი არაფერია');return}for(const[k,v]of Object.entries(u)){if(v)ST.done[k]=v;else delete ST.done[k]}paint();queueSave();toast('გაუქმდა')});
 // ---- bulk
-function renderBulk(){const b=$('bulk');if(!focusPart||layer==='all'){b.innerHTML='';return}
- b.innerHTML=`<button id="ball">ყველას მონიშვნა</button><button id="bclr">გასუფთავება</button>`;
+function renderBulk(){const b=$('bulk');if(!focusPart||layer==='all'){b.innerHTML='<span style="font-size:12.5px">აირჩიეთ ნაწილი და ტიპი სწრაფი მონიშვნისთვის</span>';return}
+ b.innerHTML=`<button id="ball">${focusPart}: ყველას მონიშვნა</button><button id="bclr">ამ თვის გასუფთავება</button>`;
  const ids=D.els.filter(e=>e.p===focusPart&&CAT[e.t]===layer).map(e=>K(e.id));
- $('ball').onclick=()=>ask(`${focusPart}-ში (${floor}) ყველა „${LAY.find(x=>x[0]===layer)[1]}“ მოინიშნოს დამონტაჟებულად – ${mon.value}?`,()=>setMany(ids.filter(i=>!ST.done[i]),mon.value));
+ $('ball').onclick=()=>ask(`${focusPart}-ში ყველა „${LAY.find(x=>x[0]===layer)[1]}“ მოინიშნოს დამონტაჟებულად – ${mon.value}?`,()=>setMany(ids.filter(i=>!ST.done[i]),mon.value));
  $('bclr').onclick=()=>ask(`წაიშალოს ${focusPart}-ის „${LAY.find(x=>x[0]===layer)[1]}“ მონიშვნები (${mon.value})?`,()=>setMany(ids.filter(i=>ST.done[i]===mon.value),null))}
 function ask(t,fn){$('dlgt').textContent=t;$('dlg').classList.add('on');$('dyes').onclick=()=>{$('dlg').classList.remove('on');fn()};$('dno').onclick=()=>$('dlg').classList.remove('on')}
 // ---- pan / zoom / tap
@@ -260,17 +286,20 @@ svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
 svg.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,Math.exp(e.deltaY*0.0015))},{passive:false});
 $('zin').onclick=()=>{const r=svg.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,0.7)};
 $('zfit').onclick=()=>{zoomPart('All');syncLbl()};
-const MENUS=['mfloor','mmon','mpart','mlayer'];
+const MENUS=['mpart'];
 const closeMenus=x=>MENUS.forEach(m=>{if(m!==x)$(m).classList.remove('on')});
-const toggleMenu=m=>{closeMenus(m);$(m).classList.toggle('on')};
-$('bfloor').onclick=()=>toggleMenu('mfloor');$('bmon').onclick=()=>toggleMenu('mmon');$('bpart').onclick=()=>toggleMenu('mpart');$('blayer').onclick=()=>toggleMenu('mlayer');
+function layout(){const nb=document.querySelector('.nav').getBoundingClientRect(),bb=$('bottombar').getBoundingClientRect();document.querySelector('.legend').style.top=(nb.bottom+6)+'px';$('toast').style.bottom=(innerHeight-bb.top+10)+'px'}
+addEventListener('resize',layout);requestAnimationFrame(layout);
+const toggleMenu=m=>{closeMenus(m);const bb=$('bottombar').getBoundingClientRect();$(m).style.bottom=(innerHeight-bb.top+8)+'px';$(m).classList.toggle('on')};
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('.menu')&&!e.target.closest('#bpart'))closeMenus()},true);
+$('bpart').onclick=()=>toggleMenu('mpart');
 svg.addEventListener('pointerdown',()=>closeMenus(),true);
 ['floors','partsbar','layers'].forEach(id=>$(id).addEventListener('click',()=>setTimeout(()=>{closeMenus();syncLbl()},0)));
 mon.addEventListener('change',()=>{closeMenus();syncLbl()});
 const PL=['All',...PARTS];
 const stepPart=d=>{const i=PL.indexOf(focusPart||'All');zoomPart(PL[(i+d+PL.length)%PL.length]);syncLbl()};
 $('pprev').onclick=()=>stepPart(-1);$('pnext').onclick=()=>stepPart(1);
-function syncLbl(){$('partlbl').textContent=focusPart||'გეგმა';const L=LAY.find(x=>x[0]===layer);$('llbl').textContent=L[1];const d=$('ldot');d.className='dot'+(L[2]?'':' all');d.style.background=L[2]?`var(${L[2]})`:'';renderNums()}
+function syncLbl(){$('partlbl').textContent=focusPart||'გეგმა';renderNums()}
 $('tostats').onclick=()=>$('stats').scrollIntoView({behavior:'smooth'});
 $('zout').onclick=()=>{const r=svg.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,1/0.7)};
 // ---- saving
