@@ -14,14 +14,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:light dark;
---bg:light-dark(#E7E9EE,#111317);--sheet:light-dark(#ffffff,#1c1f24);--grp:light-dark(#ffffff,#1c1f24);--ink:light-dark(#111317,#f1f2f4);--mute:light-dark(#6b717b,#979ea8);
---chip:light-dark(#E3E6EB,#2C3037);--sep:light-dark(rgba(60,60,67,.16),rgba(235,235,245,.14));--glass:light-dark(rgba(247,248,250,.86),rgba(32,35,40,.84));
---acc:light-dark(#B3480A,#FFB68A);--bgl:light-dark(#c6cad1,#3b4048);
+--bg:#E7E9EE;--sheet:#ffffff;--grp:#ffffff;--ink:#111317;--mute:#6b717b;
+--chip:#E3E6EB;--sep:rgba(60,60,67,.16);--glass:rgba(247,248,250,.86);
+--acc:#B3480A;--bgl:#c6cad1;
 --ceil:#9b3fd1;--cer:#1E9E4A;--acm:#1E6FE0;--niche:#FF9800;--fac:#0f7a5a;--now:#FF6A13}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+--bg:#111317;--sheet:#1c1f24;--grp:#1c1f24;--ink:#f1f2f4;--mute:#979ea8;
+--chip:#2C3037;--sep:rgba(235,235,245,.14);--glass:rgba(32,35,40,.84);
+--acc:#FFB68A;--bgl:#3b4048}}
+:root[data-theme=dark]{
+--bg:#111317;--sheet:#1c1f24;--grp:#1c1f24;--ink:#f1f2f4;--mute:#979ea8;
+--chip:#2C3037;--sep:rgba(235,235,245,.14);--glass:rgba(32,35,40,.84);
+--acc:#FFB68A;--bgl:#3b4048}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",Roboto,"Noto Sans Georgian",sans-serif;overflow-x:clip}
-.viewer{position:relative;height:100dvh;min-height:480px}
+.viewer{position:relative;height:100vh;height:100dvh;min-height:480px}
 .plan{position:absolute;inset:0;overflow:hidden;touch-action:none}
 .plan svg{position:absolute;inset:0;width:100%;height:100%;user-select:none;-webkit-user-select:none}
 .glass{position:absolute;z-index:2;background:var(--glass);-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);border:.5px solid var(--sep);box-shadow:0 2px 14px rgba(0,0,0,.07)}
@@ -54,8 +62,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-of
 .pb{fill:none;stroke:var(--bgl);stroke-width:.5;stroke-dasharray:3 2}
 .pl{font:600 18px -apple-system,sans-serif;fill:var(--mute)}
 .el{cursor:pointer}
-.ceil polygon{fill:color-mix(in srgb,var(--ceil) 8%,transparent);stroke:color-mix(in srgb,var(--ceil) 50%,transparent);stroke-width:.35}
-.ceil.d polygon{fill:color-mix(in srgb,var(--ceil) 55%,transparent);stroke:var(--ceil)}
+.ceil polygon{fill:rgba(155,63,209,0.08);stroke:rgba(155,63,209,0.5);stroke-width:.35}
+.ceil.d polygon{fill:rgba(155,63,209,0.55);stroke:var(--ceil)}
 .ceil.n polygon{fill:var(--ceil);stroke:var(--now);stroke-width:1}
 .ln .v{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.1;opacity:.3}
 .ln .h{fill:none;stroke:transparent;stroke-width:18px;vector-effect:non-scaling-stroke}
@@ -114,8 +122,8 @@ pre{background:var(--grp);border-radius:12px;padding:14px 16px;margin:0;font:inh
 .legend{left:10px;top:calc(max(10px,env(safe-area-inset-top)) + 74px);border-radius:12px;padding:6px 10px;display:flex;gap:12px;font-size:12.5px;color:var(--mute)}
 .legend span{display:flex;align-items:center;gap:5px}
 .lg{width:14px;height:10px;border-radius:3px;display:inline-block}
-.l0{background:color-mix(in srgb,var(--ceil) 10%,transparent);border:1px solid color-mix(in srgb,var(--ceil) 50%,transparent)}
-.l1{background:color-mix(in srgb,var(--ceil) 55%,transparent);border:1px solid var(--ceil)}
+.l0{background:rgba(155,63,209,0.1);border:1px solid rgba(155,63,209,0.5)}
+.l1{background:rgba(155,63,209,0.55);border:1px solid var(--ceil)}
 .l2{background:var(--ceil);border:1.5px solid var(--now)}
 #mpart{left:50%;transform:translateX(-50%);bottom:calc(max(12px,env(safe-area-inset-bottom)) + 70px)}
 .li{flex-wrap:wrap;row-gap:6px}
@@ -159,7 +167,7 @@ pre{background:var(--grp);border-radius:12px;padding:14px 16px;margin:0;font:inh
  <div id="scope" hidden></div>
  <div class="gh"><b id="kh">ამ თვეში</b></div>
  <div class="grp" id="kpis"></div>
- <div class="gh"><b>ნაწილების მიხედვით</b><span class="row" id="bulk"></span></div>
+ <div class="gh"><b>ნაწილების მიხედვით</b><span id="bulk" hidden></span></div>
  <div class="seg" id="ptype" style="margin:0 0 8px"></div>
  <div class="tw"><table id="tbl"></table></div>
  <div class="gh"><b id="rh">ანგარიში</b><button class="lnk" id="copy">კოპირება</button></div>
