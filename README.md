@@ -1,6 +1,7 @@
-# აივნების ფასადის პროგრესი
+# აივნები – AC units
 
-Tap-to-mark tracker for balcony facade works (AC units plan, blocks A, B, C · floors L1–L3).
-Open the GitHub Pages link on an iPad, then Share → Add to Home Screen.
+ფასადის სამუშაოების აღრიცხვა აივნებზე (A, B, C ბლოკები, სართულები L1–L3).
 
-Marks are stored in each device's browser; use the backup buttons in the app to move or keep them.
+გახსენით: https://grishanazaretyan.github.io/facade-progress/
+
+iPad/iPhone: Safari → Share → Add to Home Screen.

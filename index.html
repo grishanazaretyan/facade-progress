@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>AC units – აივნები</title>
+<title>აივნები</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#E7E9EE" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,7 +27,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-sy
 .glass{position:absolute;z-index:2;background:var(--glass);-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);border:.5px solid var(--sep);box-shadow:0 2px 14px rgba(0,0,0,.07)}
 .nav{left:10px;right:10px;top:max(10px,env(safe-area-inset-top));height:58px;border-radius:29px;display:flex;align-items:center;padding:0 6px 0 18px;gap:2px}
 .nav .t{flex:1;overflow:hidden}
-.nav .t b{display:block;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav .t b{display:block;font-size:17px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav .t span{display:block;font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 button{font:inherit;color:var(--ink);background:none;border:0;cursor:pointer;padding:0;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
 button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:1px;border-radius:10px}
@@ -107,9 +107,9 @@ pre{background:var(--grp);border-radius:12px;padding:14px 16px;margin:0;font:inh
 <div class="viewer">
 <div class="plan" id="plan"><svg id="svg" role="img" aria-label="გეგმა"></svg></div>
 <div class="glass nav">
- <div class="t"><b>AC units – აივნები</b><span id="sub"></span></div>
- <button class="ib" id="bfloor" aria-label="სართული"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg></button>
- <button class="ib" id="bmon" aria-label="თვე"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>
+ <div class="t"><b>აივნები</b><span id="sub">AC units</span></div>
+ <button class="tb" id="bfloor" aria-label="სართული"><span id="flbl">L1</span><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg></button>
+ <button class="tb" id="bmon" aria-label="თვე"><span id="mlbl"></span><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg></button>
  <button class="ib" id="tostats" aria-label="ჯამები"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
 </div>
 <div class="glass menu" id="mfloor" style="right:10px;top:calc(max(10px,env(safe-area-inset-top)) + 64px)"><div class="hd">სართული</div><div id="floors"></div></div>
@@ -133,14 +133,14 @@ pre{background:var(--grp);border-radius:12px;padding:14px 16px;margin:0;font:inh
  <div class="seg" id="scope"></div>
  <div class="gh"><b id="kh">ამ თვეში</b></div>
  <div class="grp" id="kpis"></div>
- <div class="gh"><b>ნაწილები</b><span class="row" id="bulk"></span></div>
+ <div class="gh"><b>ნაწილების მიხედვით</b><span class="row" id="bulk"></span></div>
+ <div class="seg" id="ptype" style="margin:0 0 8px"></div>
  <div class="tw"><table id="tbl"></table></div>
- <div class="foot">მუქი ციფრი – ამ თვეში, ქვემოთ – სულ / მოცულობა, მ².</div>
  <div class="gh"><b id="rh">ანგარიში</b><button class="lnk" id="copy">კოპირება</button></div>
  <pre id="rep"></pre>
  <div class="gh"><b>სარეზერვო ასლი</b></div>
- <div class="grp"><button class="li lnk" id="bk" style="width:100%;justify-content:flex-start">ასლის ჩამოტვირთვა</button><button class="li lnk" id="rsb" style="width:100%;justify-content:flex-start">ასლიდან აღდგენა</button><button class="li lnk" id="seed" style="width:100%;justify-content:flex-start">Claude-ის მონიშვნების ჩატვირთვა</button><input type="file" id="rs" accept="application/json,.json" hidden></div>
- <div class="foot">მონიშვნები ინახება ამ მოწყობილობაზე. თვის ბოლოს ჩამოტვირთეთ ასლი.</div>
+ <div class="grp"><button class="li lnk" id="bk" style="width:100%;justify-content:flex-start">ასლის ჩამოტვირთვა</button><button class="li lnk" id="rsb" style="width:100%;justify-content:flex-start">ასლიდან აღდგენა</button><input type="file" id="rs" accept="application/json,.json" hidden></div>
+ <div class="foot">მონიშვნები ინახება ამ ტელეფონზე/პლანშეტზე. თვის ბოლოს ჩამოტვირთეთ ასლი.</div>
  <div class="foot" id="save" aria-live="polite"></div>
 </main>
 <div class="dlg" id="dlg"><div><div id="dlgt"></div><div class="row"><button id="dno">გაუქმება</button><button id="dyes">დიახ</button></div></div></div>
@@ -154,6 +154,7 @@ const D=JSON.parse(document.getElementById('data').textContent);
 const BG=JSON.parse(document.getElementById('bgd').textContent);
 let ST=JSON.parse(document.getElementById('st').textContent);
 try{const l=localStorage.getItem('bfp-state');if(l&&!Object.keys(ST.done).length){ST=JSON.parse(l)}}catch(e){}
+let FIRST=false;try{FIRST=!localStorage.getItem('bfp-state')}catch(e){}
 const CAT={ceil:'ceil',cer:'cer',win:'cer',fac:'cer',acm:'acm',niche:'niche'};
 const CN={ceil:'ჭერი ACM',cer:'კერამიკული კედლები',acm:'სვეტი + კონდიციონერის კედლები ACM',niche:'კონდიციონერის ნიშის ჭერი (არა ACM)'};
 const CV={ceil:'--ceil',cer:'--cer',acm:'--acm',niche:'--niche'};
@@ -162,11 +163,11 @@ const NS='http://www.w3.org/2000/svg';
 const $=id=>document.getElementById(id);
 const fmt=v=>v.toFixed(1).replace('.',',');
 const now=new Date(); const mon=$('mon'); mon.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-let layer='all', undoStack=[], art=null, canWrite=true, floor='L1', scope='all';
+let ptype='ceil', layer='all', undoStack=[], art=null, canWrite=true, floor='L1', scope='all';
 const FL=[['L1','L1  +4.50'],['L2','L2  +7.80'],['L3','L3  +11.10']];const K=id=>floor+':'+id;
 $('floors').innerHTML=FL.map(([f,n])=>`<button data-f="${f}" aria-pressed="${f==='L1'}">${n}</button>`).join('');
 $('floors').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;floor=b.dataset.f;$('floors').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));paint();renderBulk();toast(b.textContent)});
-$('scope').innerHTML=`<button data-s="all" aria-pressed="true">სამივე სართული</button><button data-s="one" aria-pressed="false">არჩეული სართული</button>`;
+$('scope').innerHTML=`<button data-s="all" aria-pressed="true">3 სართული ერთად</button><button data-s="one" aria-pressed="false">მხოლოდ ეს სართული</button>`;
 $('scope').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;scope=b.dataset.s;$('scope').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderNums()});
 const byId={}; D.els.forEach(e=>byId[e.id]=e);
 // ---- svg build
@@ -210,19 +211,21 @@ function sums(){const m=mon.value,S={},fs=scope==='all'?FL.map(x=>x[0]):[floor];
  for(const f of fs)for(const e of D.els){const c=CAT[e.t],k=e.p+'|'+c;S[k]=S[k]||{s:0,d:0,n:0};S[k].s+=e.a;const d=ST.done[f+':'+e.id];if(d&&d<=m)S[k].d+=e.a;if(d===m)S[k].n+=e.a}
  return S}
 function renderNums(){const S=sums(),m=mon.value;const MK=['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'];const mname=MK[+m.slice(5,7)-1]+' '+m.slice(0,4);
- const sc=scope==='all'?'3 სართული':FL.find(x=>x[0]===floor)[1];$('kh').textContent=mname+', '+sc;$('rh').textContent='ანგარიში, '+mname;$('sub').textContent=FL.find(x=>x[0]===floor)[1]+', '+mname;
+ const sc=scope==='all'?'3 სართული':FL.find(x=>x[0]===floor)[1];$('kh').textContent=mname+', '+sc;$('rh').textContent='ანგარიში, '+mname;$('flbl').textContent=floor;$('mlbl').textContent=MK[+m.slice(5,7)-1].slice(0,3)+'. '+m.slice(2,4);
  const tot=c=>PARTS.reduce((a,p)=>{const v=S[p+'|'+c]||{s:0,d:0,n:0};a.s+=v.s;a.d+=v.d;a.n+=v.n;return a},{s:0,d:0,n:0});
- $('kpis').innerHTML=Object.keys(CN).map(c=>{const t=tot(c),pc=t.s?t.d/t.s*100:0;return`<div class="li"><span class="dot" style="background:var(${CV[c]})"></span><span class="n">${CN[c]}</span><span class="v">${fmt(t.n)} მ²</span><span class="s">${Math.round(pc)}% სულ</span></div>`}).join('');
- const cell=v=>`<td class="num">${v.n?'<b>'+fmt(v.n)+'</b>':'–'}<br><small>${fmt(v.d)} / ${fmt(v.s)}</small></td>`;
- let h=`<tr><th>ნაწილი</th>${Object.values(CN).map(n=>`<th>${n.replace(' (არა ACM)','')}</th>`).join('')}</tr>`;
+ $('kpis').innerHTML=Object.keys(CN).map(c=>{const t=tot(c),pc=t.s?t.d/t.s*100:0;return`<div class="li"><span class="dot" style="background:var(${CV[c]})"></span><span class="n">${CN[c]}</span><span class="v">${fmt(t.n)} მ²</span><span class="s">${Math.round(pc)}%</span></div>`}).join('');
+ const pc=v=>v.s?Math.round(v.d/v.s*100)+'%':'–';const cell=v=>`<td>${v.n?'<b>'+fmt(v.n)+'</b>':'–'}</td><td>${fmt(v.d)} <small>/ ${fmt(v.s)}</small></td><td><small>${pc(v)}</small></td>`;const c=ptype;
+ let h=`<tr><th></th><th>ამ თვეში</th><th>სულ / მოცულობა, მ²</th><th></th></tr>`;
  for(const b of ['A','B','C']){const ps=PARTS.filter(p=>p[0]===b);
-  h+=`<tr class="bk"><td>${b} ბლოკი</td>${Object.keys(CN).map(c=>{const v=ps.reduce((a,p)=>{const x=S[p+'|'+c]||{s:0,d:0,n:0};a.s+=x.s;a.d+=x.d;a.n+=x.n;return a},{s:0,d:0,n:0});return cell(v)}).join('')}</tr>`;
-  for(const p of ps)h+=`<tr class="pr" data-p="${p}"><td>${p}</td>${Object.keys(CN).map(c=>cell(S[p+'|'+c]||{s:0,d:0,n:0})).join('')}</tr>`}
+  h+=`<tr class="bk"><td>${b} ბლოკი</td>${cell(ps.reduce((a,p)=>{const x=S[p+'|'+c]||{s:0,d:0,n:0};a.s+=x.s;a.d+=x.d;a.n+=x.n;return a},{s:0,d:0,n:0}))}</tr>`;
+  for(const p of ps)h+=`<tr class="pr" data-p="${p}"><td>${p}</td>${cell(S[p+'|'+c]||{s:0,d:0,n:0})}</tr>`}
  $('tbl').innerHTML=h;
  let r='';for(const b of ['A','B','C']){for(const p of PARTS.filter(p=>p[0]===b)){r+=`${b} ბლოკი – ${p} ნაწილი\n`;for(const c of Object.keys(CN)){const v=S[p+'|'+c]||{n:0};r+=`${CN[c]} — ${fmt(v.n)} მ²\n`}r+='\n'}}
  const all=Object.keys(CN).map(c=>`${CN[c]} — ${fmt(tot(c).n)} მ²`).join('\n');
  $('rep').textContent=r+'სულ ამ თვეში\n'+all;
 }
+$('ptype').innerHTML=[['ceil','ჭერი'],['cer','კერამიკა'],['acm','ACM კედლები'],['niche','ნიშა']].map(([k,n])=>`<button data-t="${k}" aria-pressed="${k==='ceil'}">${n}</button>`).join('');
+$('ptype').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;ptype=b.dataset.t;$('ptype').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderNums()});
 $('tbl').addEventListener('click',e=>{const tr=e.target.closest('tr.pr');if(tr){zoomPart(tr.dataset.p);$('plan').scrollIntoView({behavior:'smooth',block:'center'})}});
 $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('rep').textContent);toast('ანგარიში დაკოპირდა')}catch(e){toast('მონიშნეთ ტექსტი და დააკოპირეთ')}});
 mon.addEventListener('change',()=>{paint();renderBulk()});
@@ -282,14 +285,14 @@ async function doSave(){const js=JSON.stringify(ST).replace(/</g,'\\u003c');
   if(/not_granted|not_writer/.test(c)){canWrite=false;status('მხოლოდ სანახავად – ცვლილებები არ ინახება')}else if(/conflict/.test(c)){status('სხვამ შეინახა – ახლდება')}else status('ვერ შეინახა – სცადეთ თავიდან')}}
 status('');
 const SEED={"done":{"L1:A1-C000":"2026-11","L1:A1-C003":"2026-11","L1:A1-C002":"2026-11","L1:A1-C006":"2026-11","L1:A1-C007":"2026-11","L1:A1-C011":"2026-11","L1:A1-C010":"2026-11","L1:A1-C004":"2026-11","L1:A1-C005":"2026-11","L1:A1-C009":"2026-11","L1:A1-C008":"2026-11","L1:A1-C013":"2026-11","L1:A1-C012":"2026-11","L1:A1-C015":"2026-11","L1:A1-C017":"2026-11","L1:A1-C020":"2026-11","L1:A1-C019":"2026-11","L1:A1-C021":"2026-11","L1:A1-C022":"2026-11","L1:A1-C023":"2026-11","L1:A1-C025":"2026-11","L1:A1-C028":"2026-11","L1:A1-C027":"2026-11","L1:A1-C030":"2026-11","L1:A1-C029":"2026-11","L1:A1-C031":"2026-11","L1:A1-C032":"2026-11","L1:A1-C035":"2026-11","L1:A1-C036":"2026-11","L1:A1-C034":"2026-11","L1:B1-C035":"2026-11","L1:B1-C036":"2026-11","L1:B1-W004":"2026-11","L1:B1-W010":"2026-11","L1:B1-W018":"2026-11","L1:B1-W012":"2026-11","L1:B1-W011":"2026-11","L1:B1-W017":"2026-11","L1:B1-W009":"2026-11"}};
+if(FIRST&&!Object.keys(ST.done).length){ST={done:{...SEED.done}};try{localStorage.setItem('bfp-state',JSON.stringify(ST))}catch(e){}}
 $('bk').onclick=()=>{const b=new Blob([JSON.stringify(ST,null,1)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='facade-progress-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
 $('rsb').onclick=()=>$('rs').click();
 $('rs').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j||typeof j.done!=='object')throw 0;ask(`ამ მოწყობილობის მონიშვნები შეიცვალოს ასლით (${Object.keys(j.done).length} ელემენტი)?`,()=>{const prev={};for(const k of new Set([...Object.keys(ST.done),...Object.keys(j.done)]))prev[k]=ST.done[k]||null;undoStack.push(prev);ST={done:{...j.done}};paint();queueSave();toast('ასლი აღდგა')})}catch(_){toast('ეს ფაილი ასლი არ არის')}e.target.value=''};
-$('seed').onclick=()=>ask(`დაემატოს Claude-ში მონიშნული ${Object.keys(SEED.done).length} ელემენტი ამ მოწყობილობაზე?`,()=>{for(const[k,v]of Object.entries(SEED.done))if(!ST.done[k])ST.done[k]=v;paint();queueSave();toast('მონიშვნები დაემატა')});
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!window.__rl){window.__rl=1;location.reload()}});
 requestAnimationFrame(()=>{fitView(X0,Y0,W0,H0);setVB()});addEventListener('resize',()=>{if(!focusPart){fitView(X0,Y0,W0,H0);setVB()}});
 paint();renderBulk();
-if(window.claude&&claude.use){claude.use('artifact').then(a=>{art=a;status(a?'':'შენახულია ამ მოწყობილობაზე')}).catch(()=>status('შენახულია ამ მოწყობილობაზე'))}else status('შენახულია ამ მოწყობილობაზე');
+status('შენახულია ამ მოწყობილობაზე');
 }
 </script>
 </body>
