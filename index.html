@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>აივნები</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#E7E9EE" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#E7E9EE">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ფასადი">
@@ -13,20 +13,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light dark;
+:root{color-scheme:light;
 --bg:#E7E9EE;--sheet:#ffffff;--grp:#ffffff;--ink:#111317;--mute:#6b717b;
 --chip:#E3E6EB;--sep:rgba(60,60,67,.16);--glass:rgba(247,248,250,.86);
 --acc:#B3480A;--bgl:#c6cad1;
 --ceil:#9b3fd1;--cer:#1E9E4A;--acm:#1E6FE0;--niche:#FF9800;--fac:#0f7a5a;--now:#FF6A13}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
---bg:#111317;--sheet:#1c1f24;--grp:#1c1f24;--ink:#f1f2f4;--mute:#979ea8;
---chip:#2C3037;--sep:rgba(235,235,245,.14);--glass:rgba(32,35,40,.84);
---acc:#FFB68A;--bgl:#3b4048}}
-:root[data-theme=dark]{
---bg:#111317;--sheet:#1c1f24;--grp:#1c1f24;--ink:#f1f2f4;--mute:#979ea8;
---chip:#2C3037;--sep:rgba(235,235,245,.14);--glass:rgba(32,35,40,.84);
---acc:#FFB68A;--bgl:#3b4048}
-:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+
 *{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",Roboto,"Noto Sans Georgian",sans-serif;overflow-x:clip}
 .viewer{position:relative;height:100vh;height:100dvh;min-height:480px}
