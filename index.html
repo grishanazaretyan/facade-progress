@@ -286,7 +286,7 @@ $('bk').onclick=()=>{const b=new Blob([JSON.stringify(ST,null,1)],{type:'applica
 $('rsb').onclick=()=>$('rs').click();
 $('rs').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j||typeof j.done!=='object')throw 0;ask(`ამ მოწყობილობის მონიშვნები შეიცვალოს ასლით (${Object.keys(j.done).length} ელემენტი)?`,()=>{const prev={};for(const k of new Set([...Object.keys(ST.done),...Object.keys(j.done)]))prev[k]=ST.done[k]||null;undoStack.push(prev);ST={done:{...j.done}};paint();queueSave();toast('ასლი აღდგა')})}catch(_){toast('ეს ფაილი ასლი არ არის')}e.target.value=''};
 $('seed').onclick=()=>ask(`დაემატოს Claude-ში მონიშნული ${Object.keys(SEED.done).length} ელემენტი ამ მოწყობილობაზე?`,()=>{for(const[k,v]of Object.entries(SEED.done))if(!ST.done[k])ST.done[k]=v;paint();queueSave();toast('მონიშვნები დაემატა')});
-if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!window.__rl){window.__rl=1;location.reload()}});
 requestAnimationFrame(()=>{fitView(X0,Y0,W0,H0);setVB()});addEventListener('resize',()=>{if(!focusPart){fitView(X0,Y0,W0,H0);setVB()}});
 paint();renderBulk();
 if(window.claude&&claude.use){claude.use('artifact').then(a=>{art=a;status(a?'':'შენახულია ამ მოწყობილობაზე')}).catch(()=>status('შენახულია ამ მოწყობილობაზე'))}else status('შენახულია ამ მოწყობილობაზე');
