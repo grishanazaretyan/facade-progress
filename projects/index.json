@@ -1,0 +1,14 @@
+[
+ {
+  "id": "ac-units",
+  "title": "აივნები",
+  "sub": "AC units · A, B, C ბლოკები",
+  "key": "bfp-state"
+ },
+ {
+  "id": "main-facade",
+  "title": "მთავარი ფასადი",
+  "sub": "კერამოგრანიტი · რუსტი · დათბუნება",
+  "key": "fp-main-facade"
+ }
+]
